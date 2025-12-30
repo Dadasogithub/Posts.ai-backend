@@ -5,16 +5,18 @@ import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
 
 const app = express();
-app.use(cors());
+
+// CORS configuration for deployment
+const corsOptions = {
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173', // Allow your frontend URL
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 
  
-// Enable CORS for your frontend domain
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true
-}));
-
+ 
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
