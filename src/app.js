@@ -8,6 +8,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+ 
+// Enable CORS for your frontend domain
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
